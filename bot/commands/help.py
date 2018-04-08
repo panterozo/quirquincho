@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from telegram.ext import Dispatcher, CommandHandler
 from telegram import Bot, Update, ParseMode
+from telegram.ext import Dispatcher, CommandHandler
+from emoji import emojize
+
 from bot import logger
 from bot.helpers import Chat
 from bot.stickers import Quirquincho
-from emoji import emojize
+from bot.events import BotEvents
 
 
 class Messages(object):
@@ -38,9 +40,12 @@ class Command(object):
         :param update: Entregado por dispatcher
         :return:
         """
+
+        BotEvents.instance().message_received(bot, update)
+
         if Chat.is_private(update):
-            logger.log.debug('Received Message %s' % update.message.text)
             update.message.reply_text(Messages.help(), parse_mode=ParseMode.MARKDOWN)
+            BotEvents.instance().reply(bot, update, Messages.help())
             bot.send_sticker(update.message.chat.id, Quirquincho.ok)
 
     @classmethod

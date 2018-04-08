@@ -5,13 +5,24 @@ import importlib
 
 from bot import config
 from bot import logger
+from bot.events import BotEvents, SystemEvents
+
 from unipath import Path
+from telegram import Bot, Update
 from telegram.ext import Updater
 
 commands = []
 
 
-def error(bot, update, err):
+def on_message_received(bot: Bot, update:Update):
+    logger.log.debug('Message Received %s' % update.message.text)
+
+
+def on_reply(bot: Bot, update:Update, message):
+    logger.log.debug('Bot sent reply %s' % message)
+
+
+def error(bot:Bot, update:Update, err):
     logger.log.warning('Update: "%s" - Error: "%s"' % (update, err))
 
 
@@ -61,6 +72,14 @@ def init():
     dispatcher.add_error_handler(error)
 
     logger.log.info("Started Listening Updates")
+
+    bot_events = BotEvents.instance()
+    bot_events.on_message_received += on_message_received
+    bot_events.on_reply += on_reply
+
+    events = SystemEvents.instance()
+    events.ready()
+
     updater.start_polling()
 
     # Run the bot until the you presses Ctrl-C or the process receives SIGINT,

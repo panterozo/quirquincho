@@ -10,6 +10,7 @@ python-json-logger = "*"
 envparse = "*"
 python-telegram-bot = "*"
 unipath = "*"
+events = "*"
 
 [dev-packages]
 the = "*"

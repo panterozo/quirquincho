@@ -6,12 +6,17 @@ administration and operations.
 """
 import importlib
 
-
 import bot.config
 import bot.logger
 import bot.bot
 
+from bot.events import SystemEvents
+
 from envparse import env
+
+
+def ready():
+    bot.logger.log.info('Bot Initialized {0} {1}'.format(bot.config.name, bot.config.version))
 
 
 if __name__ == '__main__':
@@ -23,8 +28,11 @@ if __name__ == '__main__':
 
     bot.logger.init()
 
-    bot.logger.log.info('Bot Initialized {0} {1}'.format(bot.config.name, bot.config.version))
+    events = SystemEvents.instance()
+    events.on_ready += ready
 
     bot.bot.init()
+
+    events.done()
 
 
