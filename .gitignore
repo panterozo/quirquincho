@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # Config
-config.py
+#config.py
 
 # C extensions
 *.so
@@ -102,3 +102,8 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+.idea/
+
+.DS_Store
+Thumbs.db
