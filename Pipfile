@@ -6,12 +6,9 @@ name = "pypi"
 [packages]
 requests = "*"
 emoji = "*"
-Cerberus = "*"
 python-json-logger = "*"
 envparse = "*"
 python-telegram-bot = "*"
-"Jinja2" = "*"
-Unipath = "*"
 unipath = "*"
 
 [dev-packages]
