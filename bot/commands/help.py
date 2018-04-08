@@ -33,7 +33,7 @@ class Command(object):
     @staticmethod
     def run(bot: Bot, update: Update):
         """
-
+        Runs the command
         :param bot: Entregado por dispatcher
         :param update: Entregado por dispatcher
         :return:
