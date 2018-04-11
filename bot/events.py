@@ -27,10 +27,13 @@ class SystemEvents(BaseEvent):
 
 
 class BotEvents(BaseEvent):
-    __events__ = ('on_message_received', 'on_reply')
+    __events__ = ('on_message_received', 'on_reply', 'on_command_loaded')
 
     def message_received(self, bot: Bot, update: Update):
         self.on_message_received(bot, update)
 
     def reply(self,  bot: Bot, update: Update, message: str):
         self.on_reply(bot, update, message)
+    
+    def command_loaded(self, bot: Bot, update: Update, name:str = None):
+        self.on_command_loaded(bot, update, name)

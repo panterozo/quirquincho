@@ -43,6 +43,7 @@ def init():
     # and append any command to the list like this
     # commands = ['help']
 
+    # TODO: Implement autoloading
     files = Path('{0}/commands'.format(
         Path(__file__).absolute().ancestor(1)
     )).walk(pattern='*.py')
@@ -62,10 +63,10 @@ def init():
     for command in commands:
 
         # Import the module
-        module = importlib.import_module('bot.commands.%s' % command)
+        module = importlib.import_module('bot.commands.%s.controller' % command)
 
         # Get class and call init method
-        cls = getattr(module, 'Command')
+        cls = getattr(module, 'Controller')
         cls().init(dispatcher)
 
     # Log all errors
