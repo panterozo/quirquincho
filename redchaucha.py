@@ -7,8 +7,12 @@ import time
 def getTx(addr):
 	info = get('http://insight.chaucha.cl/api/txs/?address=' + addr).json()
 	msg = ''
+	totalPages = range(int(info['pagesTotal']))
+	# para prevenir que se busque en todas las paginas. Debería buscar las ultimas 1 o 2 (codigo no probado)
+	if totalPages > 2:
+		totalPages = 2
 
-	for x in range(int(info['pagesTotal'])):
+	for x in totalPages:
 		info = get('http://insight.chaucha.cl/api/txs/?address=' + addr + '&pageNum=' + str(x)).json()
 		for i in info['txs']:
 			for j in i['vout']:
